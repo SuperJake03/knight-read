@@ -1,0 +1,4 @@
+# Ignore all saved books
+*
+# Except this file (keeps the books dir)
+!.gitignore
