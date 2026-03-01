@@ -2,7 +2,6 @@
 
 ## Things this eBook reader should do
 
-- take in epub files
 - parse epub files
 - display book contents
 - be able to store books in some location
