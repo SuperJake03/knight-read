@@ -1,3 +1,4 @@
-EbookLib==0.20
-lxml==6.0.2
-six==1.17.0
+ebookLib
+fastapi
+uvicorn
+python-multipart
