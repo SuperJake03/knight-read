@@ -21,8 +21,7 @@ def upload_book(file: UploadFile = File(..., description="Book file as UploadFil
 
     # call epub parser on f"books/{file_name}" to retrieve ID, Title, Author, Chapters, Cover Page
     metadata = parse_upload(file_path)
-    # append new book to the books dict
-
+    # append new book to the books dict with new id
     # return new book metadata
     return {
         "TODO": "Return the books ID, Title, Author, Chapters, Cover Page, file_name"
