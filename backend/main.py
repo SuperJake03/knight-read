@@ -1,7 +1,7 @@
 import os
 
 from backend.epub_parser import parse_upload
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, HTTPException, UploadFile
 
 app = FastAPI()
 
@@ -11,6 +11,13 @@ books = {}
 @app.get("/books")
 def get_all_books():
     return books
+
+
+@app.get(f"/books/{id}")
+def get_book(id: int):
+    if id not in books:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return books[id]
 
 
 @app.post("/books")
