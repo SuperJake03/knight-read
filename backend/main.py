@@ -5,8 +5,12 @@ from fastapi import FastAPI, File, UploadFile
 
 app = FastAPI()
 
-id_count = 0
 books = {}
+
+
+@app.get("/books")
+def get_all_books():
+    return books
 
 
 @app.post("/books")
@@ -19,10 +23,18 @@ def upload_book(file: UploadFile = File(..., description="Book file as UploadFil
     with open(file_path, "wb") as f:
         f.write(content)
 
-    # call epub parser on f"books/{file_name}" to retrieve ID, Title, Author, Chapters, Cover Page
-    metadata = parse_upload(file_path)
-    # append new book to the books dict with new id
-    # return new book metadata
+    book_data = parse_upload(file_path)
+    id = max(books.keys(), default=0) + 1
+    books[id] = {
+        "title": book_data["title"],
+        "author": book_data["author"],
+        "file_name": file_name,
+        "chapters": book_data["chapters"],
+    }
     return {
-        "TODO": "Return the books ID, Title, Author, Chapters, Cover Page, file_name"
+        "id": id,
+        "title": book_data["title"],
+        "author": book_data["author"],
+        "file_name": file_name,
+        "chapter_count": len(book_data["chapters"]),
     }

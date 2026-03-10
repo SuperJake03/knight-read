@@ -16,8 +16,13 @@ def parse_upload(file_path):
     else:
         author = "Unknown Author"
 
-    """
-    TODO: Finish this function
-    - Loop through chapters and store order and name
-    - return title, author, and all chapters in dict
-    """
+    chapters = []
+    index = 0
+    for chapter in book.spine:
+        item_id = chapter[0]
+        item = book.get_item_with_id(item_id)
+        if item.get_type() == ebooklib.ITEM_DOCUMENT:
+            chapters.append({"index": index, "name": item.get_name()})
+            index += 1
+
+    return {"title": title, "author": author, "chapters": chapters}
