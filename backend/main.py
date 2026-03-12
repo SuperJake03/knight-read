@@ -7,6 +7,13 @@ app = FastAPI()
 
 books = {}
 
+"""
+TODO:
+    Finish endpoints
+    - Get a books chapters
+    - Get a books chapter content
+"""
+
 
 @app.get("/books")
 def get_all_books():
