@@ -9,7 +9,7 @@ books = {}
 
 """
 TODO:
-    Finish endpoints
+    Finish API endpoints
     - Get a books chapters
     - Get a books chapter content
 """
