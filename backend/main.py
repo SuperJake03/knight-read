@@ -27,6 +27,13 @@ def get_book(id: int):
     return books[id]
 
 
+@app.get(f"/books/{id}/chapters")
+def get_all_chapters(id: int):
+    if id not in books:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return books[id]["chapters"]
+
+
 @app.post("/books")
 def upload_book(file: UploadFile = File(..., description="Book file as UploadFile")):
     file_name = os.path.basename(file.filename)
