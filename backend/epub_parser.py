@@ -22,7 +22,17 @@ def parse_upload(file_path):
         item_id = chapter[0]
         item = book.get_item_with_id(item_id)
         if item.get_type() == ebooklib.ITEM_DOCUMENT:
-            chapters.append({"index": index, "name": item.get_name()})
+            chapters.append({index: item.get_name()})
             index += 1
 
     return {"title": title, "author": author, "chapters": chapters}
+
+
+"""
+TODO:
+    - Finish this function, look into BeautifulSoup
+"""
+
+
+def parse_content(file_path, content_name):
+    pass

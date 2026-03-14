@@ -1,18 +1,11 @@
 import os
 
-from backend.epub_parser import parse_upload
+from backend.epub_parser import parse_content, parse_upload
 from fastapi import FastAPI, File, HTTPException, UploadFile
 
 app = FastAPI()
 
 books = {}
-
-"""
-TODO:
-    Finish API endpoints
-    - Get a books chapters
-    - Get a books chapter content
-"""
 
 
 @app.get("/books")
@@ -20,18 +13,42 @@ def get_all_books():
     return books
 
 
-@app.get(f"/books/{id}")
+@app.get("/books/{id}")
 def get_book(id: int):
     if id not in books:
-        raise HTTPException(status_code=404, detail="Item not found")
+        raise HTTPException(status_code=404, detail="Book not found")
     return books[id]
 
 
-@app.get(f"/books/{id}/chapters")
+@app.get("/books/{id}/chapters")
 def get_all_chapters(id: int):
     if id not in books:
-        raise HTTPException(status_code=404, detail="Item not found")
+        raise HTTPException(status_code=404, detail="Book not found")
     return books[id]["chapters"]
+
+
+"""
+TODO:
+    Finish API endpoints
+    - FINISH get_chapter_content epub parser call
+"""
+
+
+@app.get("/books/{id}/chapters/{index}")
+def get_chapter_content(id: int, index: int):
+    if id not in books:
+        raise HTTPException(status_code=404, detail="Book not found")
+    indexes = set([content["index"] for content in books[id]["chapters"]])
+    if index not in indexes:
+        raise HTTPException(status_code=404, detail="Content not found")
+    content_name = books[id]["chapters"][index]
+    file_path = os.path.join("books", books[id]["file_name"])
+    chapter_content = parse_content(file_path, content_name)
+    return {
+        "chapter_index": index,
+        "chapter_count": len(books[id]["chapters"]),
+        "content": chapter_content,
+    }
 
 
 @app.post("/books")
