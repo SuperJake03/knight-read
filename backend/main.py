@@ -28,7 +28,7 @@ def get_all_chapters(id: int):
 
 
 """
-TODO:
+TODO: finish
     Finish API endpoints
     - FINISH get_chapter_content epub parser call
 """
