@@ -10,7 +10,7 @@
 - Tracker to know place in book
 - Can mark books as read
 
-## API Endpoints
+## API Endpoints: Finish endpoints
 - POST a new book
 - GET all books, single book
 - GET a books chapters
