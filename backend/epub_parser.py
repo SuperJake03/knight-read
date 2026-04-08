@@ -1,6 +1,10 @@
 import ebooklib
 from ebooklib import epub
 
+"""
+Look into changes, using tkinter now
+"""
+
 
 def parse_upload(file_path):
     book = epub.read_epub(file_path)

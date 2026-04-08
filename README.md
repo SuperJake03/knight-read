@@ -1,20 +1,22 @@
 # Knight Read
+- An EPUB reader
 
 ## Things this eBook reader should do
 
-- This should be a web application
-- With a UI
-- Database to store books
-- Parse EPUB files
-- display EPUB contents
-- Tracker to know place in book
-- Can mark books as read
+- Take in an EPUB file from GUI
+- Parse the EPUB file
+- Display EPUB file content on the GUI
 
-## API Endpoints: Finish endpoints
-- POST a new book
-- GET all books, single book
-- GET a books chapters
-- GET a books chapters content
+### Tkinter GUI
+https://docs.python.org/3/library/tkinter.html
+https://tkdocs.com/tutorial/index.html
 
 ### parsing EPUB files
 Look into Ebooklib: https://pypi.org/project/EbookLib/
+
+## TODO
+
+- set up tkinter
+  - set up book input
+- parse epub
+- disaplay contents

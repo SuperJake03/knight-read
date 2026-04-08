@@ -1,4 +1,1 @@
 ebookLib
-fastapi
-uvicorn
-python-multipart
