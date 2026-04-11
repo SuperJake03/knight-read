@@ -10,6 +10,7 @@
 ### Tkinter GUI
 https://docs.python.org/3/library/tkinter.html
 https://tkdocs.com/tutorial/index.html
+https://realpython.com/python-gui-tkinter/#building-your-first-python-gui-application-with-tkinter
 
 ### parsing EPUB files
 Look into Ebooklib: https://pypi.org/project/EbookLib/

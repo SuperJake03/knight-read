@@ -8,8 +8,17 @@ class KnightReadGUI:
         root.title("Knight Read")
 
         mainframe = ttk.Frame(root)
-        lbl = ttk.Label(mainframe, text="Welcome to Knight Read!")
-        lbl.pack()
+
+        label = ttk.Label(
+            mainframe,
+            text="Welcome to Knight Read!",
+            foreground="white",
+            background="black",
+        )
+        label.pack()
+
+        uploadbutton = ttk.Button(mainframe, text="Upload File")
+        uploadbutton.pack()
 
         mainframe.pack()
 
