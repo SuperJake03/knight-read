@@ -16,7 +16,11 @@ Look into Ebooklib: https://pypi.org/project/EbookLib/
 
 ## TODO
 
-- set up tkinter
-  - set up book input
+- set up tkinter GUI
+  - Create first draft of welcome screen
+  - Allow file input
 - parse epub
-- disaplay contents
+- disaplay contents on GUI
+  - Allow for page turning
+- Add a database to store books
+  - Save last page
