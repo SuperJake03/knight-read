@@ -9,16 +9,23 @@ class KnightReadGUI:
 
         mainframe = ttk.Frame(root)
 
-        label = ttk.Label(
+        welcomeframe = ttk.Frame(
             mainframe,
+            borderwidth=2,
+            relief="raised",
+        )
+
+        welcomelabel = ttk.Label(
+            welcomeframe,
             text="Welcome to Knight Read!",
             foreground="white",
-            background="black",
-        )
-        label.pack()
+            background="blue",
+        ).grid()
 
-        uploadbutton = ttk.Button(mainframe, text="Upload File")
-        uploadbutton.pack()
+        welcomeframe.grid()
+
+        # uploadbutton = ttk.Button(mainframe, text="Upload File")
+        # uploadbutton.grid()
 
         mainframe.pack()
 
