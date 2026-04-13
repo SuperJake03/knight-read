@@ -5,6 +5,7 @@
 - Continue setting up splash page
 - Working on centering welcome label
 - Work on putting widgets into place
+- Text fonts and font sizes
 
 ## Things this eBook reader should do
 

@@ -50,7 +50,7 @@ class KnightReadGUI:
             welcomeframe,
             text="Welcome to Knight Read!",
         )
-        welcomelabel.grid(column=0, row=0)
+        welcomelabel.grid(column=0, row=0, pady=20)
         welcomeframe.columnconfigure(0, weight=1)
 
         root.mainloop()
