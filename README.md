@@ -1,6 +1,11 @@
 # Knight Read
 - An EPUB reader
 
+## Next Steps
+- Continue setting up splash page
+- Working on centering welcome label
+- Work on putting widgets into place
+
 ## Things this eBook reader should do
 
 - Take in an EPUB file from GUI
@@ -17,8 +22,8 @@ Look into Ebooklib: https://pypi.org/project/EbookLib/
 
 ## TODO
 
-- set up tkinter GUI
-  - Create first draft of welcome screen
+- set up tkinter GUI splash page
+  - Create welcome screen
   - Allow file input
 - parse epub
 - disaplay contents on GUI
