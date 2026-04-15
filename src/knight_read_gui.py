@@ -1,6 +1,6 @@
+from pathlib import Path
 from tkinter import *
-from tkinter import ttk
-from unittest.main import main
+from tkinter import filedialog, ttk
 
 
 class KnightReadGUI:
@@ -18,20 +18,8 @@ class KnightReadGUI:
         mainframe.rowconfigure(2, weight=1)
 
         # All container frames
-        welcomeframe = ttk.Frame(
-            mainframe,
-            borderwidth=5,
-            relief="ridge",
-            # width=1000,
-            # height=100,
-        )
-        uploadframe = ttk.Frame(
-            mainframe,
-            borderwidth=5,
-            relief="ridge",
-            width=300,
-            height=100,
-        )
+        welcomeframe = ttk.Frame(mainframe, borderwidth=5, relief="ridge")
+        uploadframe = ttk.Frame(mainframe, borderwidth=5, relief="ridge")
         libraryframe = ttk.Frame(
             mainframe,
             borderwidth=5,
@@ -46,11 +34,33 @@ class KnightReadGUI:
         libraryframe.grid(column=0, row=2, sticky=(N, W, E, S))
 
         # Welcome frame widgets
-        welcomelabel = ttk.Label(
-            welcomeframe,
-            text="Welcome to Knight Read!",
-        )
+        welcomelabel = ttk.Label(welcomeframe, text="Welcome to Knight Read!")
         welcomelabel.grid(column=0, row=0, pady=20)
         welcomeframe.columnconfigure(0, weight=1)
 
+        # Upload frame widgets
+        uploadlabel = ttk.Label(uploadframe, text="Upload new EPUB here!")
+        uploadbutton = ttk.Button(
+            uploadframe, text="Select a file", command=self.upload_file
+        )
+
+        # Layout of upload frame widgets
+        uploadlabel.grid(column=0, row=0, pady=5)
+        uploadbutton.grid(column=0, row=1, pady=5)
+        uploadframe.columnconfigure(0, weight=1)
+
         root.mainloop()
+
+    def upload_file(self):
+        file_types = [("EPUB files", "*.epub")]
+        file_path = filedialog.askopenfilename(
+            title="Select an EPUB file",
+            initialdir=Path.home(),
+            filetypes=file_types,
+        )
+        if file_path:
+            """
+            - Once here, call the epub parseing logic.
+            - Add new book to the library
+            """
+            print(file_path)

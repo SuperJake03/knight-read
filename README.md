@@ -23,6 +23,10 @@ Look into Ebooklib: https://pypi.org/project/EbookLib/
 
 ## TODO
 
+- Create a book object
+  - stores epub spine
+  - contents
+
 - set up tkinter GUI splash page
   - Create welcome screen
   - Allow file input
