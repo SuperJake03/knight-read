@@ -2,8 +2,8 @@
 - An EPUB reader
 
 ## Next Steps
+- Build book dataclasses to store parsed epub data
 - Continue setting up splash page
-- Working on centering welcome label
 - Work on putting widgets into place
 - Text fonts and font sizes
 
@@ -26,6 +26,9 @@ Look into Ebooklib: https://pypi.org/project/EbookLib/
 - Create a book object
   - stores epub spine
   - contents
+- Create chapter object
+- Create image object
+- Create stylesheet object
 
 - set up tkinter GUI splash page
   - Create welcome screen
