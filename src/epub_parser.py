@@ -41,4 +41,6 @@ TODO:
 
 def book_upload(file_path):
     book = epub.read_epub(file_path)
-    print(file_path)
+    new_book_obj = Book()
+    new_book_obj.title = book.get_metadata("DC", "title")[0][0]
+    print(f"Title: {new_book_obj.title}")
