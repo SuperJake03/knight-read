@@ -1,4 +1,5 @@
 import ebooklib
+from book import Book
 from ebooklib import epub
 
 """
@@ -6,7 +7,7 @@ Look into changes, using tkinter now
 """
 
 
-def parse_upload(file_path):
+def old_parse_upload(file_path):
     book = epub.read_epub(file_path)
 
     title_meta = book.get_metadata("DC", "title")
@@ -38,5 +39,6 @@ TODO:
 """
 
 
-def parse_content(file_path, content_name):
-    pass
+def book_upload(file_path):
+    book = epub.read_epub(file_path)
+    print(file_path)

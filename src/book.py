@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
-from typing import Optional
+
+from ebooklib.epub import Link
 
 
 @dataclass
@@ -23,16 +24,17 @@ class Book:
     title: str = ""
     author: list[str] = field(default_factory=list)
     identifier: str = ""
-    publisher: str = ""
-    pub_date: str = ""
-    description: str = ""
+    publisher: str | None = ""
+    pub_date: str | None = ""
+    description: str | None = ""
     subjects: list[str] = field(default_factory=list)
 
-    # Structure
-    toc: list[dict] = field(default_factory=list)
-    spine: list[str] = field(default_factory=list)
+    # # Structure
+    type TocEntry = Link | tuple[TocEntry, ...]
+    toc: tuple[TocEntry, ...] = ()
+    spine: list[tuple[str, str]] = field(default_factory=list)
 
-    # Content
-    chapters: list[Chapter] = field(default_factory=list)
-    images: list[Image] = field(default_factory=list)
-    style_sheets: list[StyleSheet] = field(default_factory=list)
+    # # Content
+    # chapters: list[Chapter] = field(default_factory=list)
+    # images: list[Image] = field(default_factory=list)
+    # style_sheets: list[StyleSheet] = field(default_factory=list)

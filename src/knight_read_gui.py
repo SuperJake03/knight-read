@@ -2,6 +2,8 @@ from pathlib import Path
 from tkinter import *
 from tkinter import filedialog, ttk
 
+from epub_parser import book_upload
+
 
 class KnightReadGUI:
     def __init__(self):
@@ -63,4 +65,4 @@ class KnightReadGUI:
             - Once here, call the epub parseing logic.
             - Add new book to the library
             """
-            print(file_path)
+            book_upload(file_path)
