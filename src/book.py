@@ -23,7 +23,6 @@ class Book:
     # Metadata
     title: str = ""
     author: list[str] = field(default_factory=list)
-    identifier: str = ""
     publisher: str | None = ""
     pub_date: str | None = ""
     description: str | None = ""

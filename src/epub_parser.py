@@ -42,5 +42,20 @@ TODO:
 def book_upload(file_path):
     book = epub.read_epub(file_path)
     new_book_obj = Book()
-    new_book_obj.title = book.get_metadata("DC", "title")[0][0]
+
+    new_book_obj.title = extract_metadata(book.get_metadata("DC", "title"))
+    authors = book.get_metadata("DC", "creator")
+    for auth in authors:
+        new_book_obj.author.append(auth[0])
+    new_book_obj.publisher = extract_metadata(book.get_metadata("DC", "publisher"))
+    new_book_obj.pub_date = extract_metadata(book.get_metadata("DC", "date"))
+    new_book_obj.description = extract_metadata(book.get_metadata("DC", "description"))
     print(f"Title: {new_book_obj.title}")
+    print(f"Author: {new_book_obj.author}")
+    print(f"Publisher: {new_book_obj.publisher}")
+    print(f"Publication Date: {new_book_obj.pub_date}")
+    print(f"Description: {new_book_obj.description}")
+
+
+def extract_metadata(raw):
+    return raw[0][0] if raw else ""

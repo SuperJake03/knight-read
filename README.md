@@ -3,9 +3,6 @@
 
 ## Next Steps
 - Build book dataclasses to store parsed epub data
-- Continue setting up splash page
-- Work on putting widgets into place
-- Text fonts and font sizes
 
 ## Things this eBook reader should do
 
