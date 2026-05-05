@@ -28,12 +28,12 @@ class Book:
     description: str | None = ""
     subjects: list[str] = field(default_factory=list)
 
-    # # Structure
+    # Structure
     type TocEntry = Link | tuple[TocEntry, ...]
     toc: tuple[TocEntry, ...] = ()
     spine: list[tuple[str, str]] = field(default_factory=list)
 
-    # # Content
-    # chapters: list[Chapter] = field(default_factory=list)
+    # Content
+    chapters: list[Chapter] = field(default_factory=list)
     # images: list[Image] = field(default_factory=list)
     # style_sheets: list[StyleSheet] = field(default_factory=list)
