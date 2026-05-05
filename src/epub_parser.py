@@ -1,12 +1,10 @@
 import ebooklib
-from book import Book
 from ebooklib import epub
 
-"""
-Look into changes, using tkinter now
-"""
+from book import Book
 
 
+# Delete this function
 def old_parse_upload(file_path):
     book = epub.read_epub(file_path)
 
@@ -33,10 +31,13 @@ def old_parse_upload(file_path):
     return {"title": title, "author": author, "chapters": chapters}
 
 
-"""
-TODO:
-    - Finish this function, look into BeautifulSoup
-"""
+def test_book_content(new_book_obj):
+    print(f"Title: {new_book_obj.title}")
+    print(f"Author: {new_book_obj.author}")
+    print(f"Publisher: {new_book_obj.publisher}")
+    print(f"Publication Date: {new_book_obj.pub_date}")
+    print(f"Description: {new_book_obj.description}")
+    print(f"Subjects: {new_book_obj.subjects}")
 
 
 def book_upload(file_path):
@@ -44,18 +45,19 @@ def book_upload(file_path):
     new_book_obj = Book()
 
     new_book_obj.title = extract_metadata(book.get_metadata("DC", "title"))
-    authors = book.get_metadata("DC", "creator")
-    for auth in authors:
-        new_book_obj.author.append(auth[0])
+    extract_metadata_list(new_book_obj.author, book.get_metadata("DC", "creator"))
     new_book_obj.publisher = extract_metadata(book.get_metadata("DC", "publisher"))
     new_book_obj.pub_date = extract_metadata(book.get_metadata("DC", "date"))
     new_book_obj.description = extract_metadata(book.get_metadata("DC", "description"))
-    print(f"Title: {new_book_obj.title}")
-    print(f"Author: {new_book_obj.author}")
-    print(f"Publisher: {new_book_obj.publisher}")
-    print(f"Publication Date: {new_book_obj.pub_date}")
-    print(f"Description: {new_book_obj.description}")
+    extract_metadata_list(new_book_obj.subjects, book.get_metadata("DC", "subject"))
+
+    test_book_content(new_book_obj)
 
 
-def extract_metadata(raw):
-    return raw[0][0] if raw else ""
+def extract_metadata(metadata):
+    return metadata[0][0] if metadata else ""
+
+
+def extract_metadata_list(list, raw):
+    for item in raw:
+        list.append(item[0])
