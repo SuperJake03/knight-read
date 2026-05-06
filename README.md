@@ -2,7 +2,6 @@
 - An EPUB reader
 
 ## Next Steps
-- Finish extracting metadata, toc, spine
 - Extract content
 - Build book dataclasses to store parsed epub data
 

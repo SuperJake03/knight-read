@@ -5,7 +5,9 @@ from ebooklib.epub import Link
 
 @dataclass
 class Chapter:
-    pass
+    id: str = ""
+    title: str = ""
+    content: str = ""
 
 
 @dataclass
