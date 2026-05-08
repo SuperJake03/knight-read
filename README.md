@@ -2,7 +2,8 @@
 - An EPUB reader
 
 ## Next Steps
-- Extract content
+- Work on creating chapter class
+- Work on extracting chapter info
 - Build book dataclasses to store parsed epub data
 
 ## Things this eBook reader should do

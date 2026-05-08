@@ -1,5 +1,5 @@
 import ebooklib
-from book import Book
+from book import Book, Chapter
 from bs4 import BeautifulSoup
 from ebooklib import epub
 
@@ -81,8 +81,14 @@ create chapter dataclass
 def extract_chapters(book, new_book_obj):
     for item_id, _ in new_book_obj.spine:
         item = book.get_item_with_id(item_id)
+        new_chap_obj = Chapter()
+        new_chap_obj.id = item_id
+        new_chap_obj.href = item.get_name()
+        item_title = item.title
+        print(f"item_id: {item_id}")
+        print(item_title)
         content = item.get_content()
         # soup = BeautifulSoup(content, "html.parser")
-        print(content)
+        # print(content)
         print("\n")
         # print(soup)
