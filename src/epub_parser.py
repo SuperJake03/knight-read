@@ -1,7 +1,8 @@
 import ebooklib
-from book import Book, Chapter
 from bs4 import BeautifulSoup
 from ebooklib import epub
+
+from book import Book, Chapter
 
 
 # Delete this function
@@ -40,6 +41,7 @@ def test_book_content(new_book_obj):
     print(f"Subjects: {new_book_obj.subjects}")
     print(f"Table of Contents: {new_book_obj.toc}")
     print(f"Spine: {new_book_obj.spine}")
+    print(f"Chapters: {new_book_obj.chapters}")
     print("")
 
 
@@ -81,14 +83,12 @@ create chapter dataclass
 def extract_chapters(book, new_book_obj):
     for item_id, _ in new_book_obj.spine:
         item = book.get_item_with_id(item_id)
-        new_chap_obj = Chapter()
-        new_chap_obj.id = item_id
-        new_chap_obj.href = item.get_name()
-        item_title = item.title
-        print(f"item_id: {item_id}")
-        print(item_title)
-        content = item.get_content()
-        # soup = BeautifulSoup(content, "html.parser")
-        # print(content)
-        print("\n")
-        # print(soup)
+        if item.is_chapter():
+            new_chap_obj = Chapter()
+            new_chap_obj.id = item_id
+            new_chap_obj.href = item.get_name()
+            body = item.get_body_content()
+            soup = BeautifulSoup(body, "html.parser")
+            new_chap_obj.title = soup.find("h1")
+            new_chap_obj.content = soup.get_text()
+            new_book_obj.chapters.append(new_chap_obj)
