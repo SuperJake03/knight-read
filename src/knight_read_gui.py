@@ -61,8 +61,5 @@ class KnightReadGUI:
             filetypes=file_types,
         )
         if file_path:
-            """
-            - Once here, call the epub parseing logic.
-            - Add new book to the library
-            """
-            book_upload(file_path)
+            new_book = book_upload(file_path)
+            print(f"{new_book.title} uploaded!!!")
