@@ -7,6 +7,9 @@ from epub_parser import book_upload
 
 class KnightReadGUI:
     def __init__(self):
+        # Library
+        self.library = {}
+
         # Root Window
         root = Tk()
         root.title("Knight Read")
@@ -62,4 +65,6 @@ class KnightReadGUI:
         )
         if file_path:
             new_book = book_upload(file_path)
+            self.library[new_book.title] = new_book
             print(f"{new_book.title} uploaded!!!")
+            print(f"library now consists of: {self.library.keys()}")

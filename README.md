@@ -2,14 +2,12 @@
 - An EPUB reader
 
 ## Next Steps
-- Work on creating chapter class
-- Work on extracting chapter info
-- Build book dataclasses to store parsed epub data
+- display book content
 
 ## Things this eBook reader should do
 
-- Take in an EPUB file from GUI
-- Parse the EPUB file
+- Take in an EPUB file from GUI (Done)
+- Parse the EPUB file (Done)
 - Display EPUB file content on the GUI
 
 ### Tkinter GUI

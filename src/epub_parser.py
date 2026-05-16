@@ -14,29 +14,37 @@ def test_book_content(new_book_obj):
     print(f"Subjects: {new_book_obj.subjects}")
     print(f"Table of Contents: {new_book_obj.toc}")
     print(f"Spine: {new_book_obj.spine}")
-    print(f"Chapters: {new_book_obj.chapters}")
+    print(f"Num of Chapters: {len(new_book_obj.chapters)}")
     print("")
 
 
 def book_upload(file_path):
     book = epub.read_epub(file_path)
-    new_book_obj = Book()
 
-    extract_metadata(book, new_book_obj)
+    title = metadata_helper(book.get_metadata("DC", "title"))
+    author = metadata_list_helper([], book.get_metadata("DC", "creator"))
+    publisher = metadata_helper(book.get_metadata("DC", "publisher"))
+    pub_date = metadata_helper(book.get_metadata("DC", "date"))
+    description = metadata_helper(book.get_metadata("DC", "description"))
+    subjects = metadata_list_helper([], book.get_metadata("DC", "subject"))
+    toc = book.toc
+    spine = book.spine
+
+    new_book_obj = Book(
+        title=title,
+        author=author,
+        publisher=publisher,
+        pub_date=pub_date,
+        description=description,
+        subjects=subjects,
+        toc=toc,
+        spine=spine,
+        chapters=[],
+    )
+
     extract_chapters(book, new_book_obj)
     # test_book_content(new_book_obj)
     return new_book_obj
-
-
-def extract_metadata(book, new_book_obj):
-    new_book_obj.title = metadata_helper(book.get_metadata("DC", "title"))
-    metadata_list_helper(new_book_obj.author, book.get_metadata("DC", "creator"))
-    new_book_obj.publisher = metadata_helper(book.get_metadata("DC", "publisher"))
-    new_book_obj.pub_date = metadata_helper(book.get_metadata("DC", "date"))
-    new_book_obj.description = metadata_helper(book.get_metadata("DC", "description"))
-    metadata_list_helper(new_book_obj.subjects, book.get_metadata("DC", "subject"))
-    new_book_obj.toc = book.toc
-    new_book_obj.spine = book.spine
 
 
 def metadata_helper(metadata):
@@ -52,11 +60,10 @@ def extract_chapters(book, new_book_obj):
     for item_id, _ in new_book_obj.spine:
         item = book.get_item_with_id(item_id)
         if item.is_chapter():
-            new_chap_obj = Chapter()
-            new_chap_obj.id = item_id
-            new_chap_obj.href = item.get_name()
+            href = item.get_name()
             body = item.get_body_content()
             soup = BeautifulSoup(body, "html.parser")
-            new_chap_obj.title = soup.find("h1")
-            new_chap_obj.content = soup.get_text()
+            title = soup.find("h1")
+            content = soup.get_text()
+            new_chap_obj = Chapter(id=item_id, href=href, title=title, content=content)
             new_book_obj.chapters.append(new_chap_obj)
