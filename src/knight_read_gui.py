@@ -25,13 +25,7 @@ class KnightReadGUI:
         # All container frames
         self.welcomeframe = ttk.Frame(self.mainframe, borderwidth=5, relief="ridge")
         self.uploadframe = ttk.Frame(self.mainframe, borderwidth=5, relief="ridge")
-        self.libraryframe = ttk.Frame(
-            self.mainframe,
-            borderwidth=5,
-            relief="ridge",
-            width=300,
-            height=300,
-        )
+        self.libraryframe = ttk.Frame(self.mainframe, borderwidth=5, relief="ridge")
 
         # Layout of container frames
         self.welcomeframe.grid(column=0, row=0, sticky=(W, E))
@@ -54,6 +48,10 @@ class KnightReadGUI:
         uploadbutton.grid(column=0, row=1, pady=5)
         self.uploadframe.columnconfigure(0, weight=1)
 
+        # library frame widgets
+        librarylabel = ttk.Label(self.libraryframe, text="Library")
+        librarylabel.pack(side="top")
+
         self.root.mainloop()
 
     def upload_file(self):
@@ -64,16 +62,19 @@ class KnightReadGUI:
             filetypes=file_types,
         )
         if file_path:
+            # Create new book object
             new_book = book_upload(file_path)
             self.library[new_book.title] = new_book
             print(f"{new_book.title} uploaded!!!")
             print(f"library now consists of: {self.library.keys()}")
+
+            # Add book to library, button
             bookbutton = ttk.Button(
                 self.libraryframe,
                 text=new_book.title,
                 command=lambda b=new_book: self.display_book(b),
             )
-            bookbutton.grid()
+            bookbutton.pack()
 
     def display_book(self, book):
-        pass
+        print(f"This book is {book.title}")
