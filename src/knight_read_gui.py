@@ -11,22 +11,22 @@ class KnightReadGUI:
         self.library = {}
 
         # Root Window
-        root = Tk()
-        root.title("Knight Read")
-        root.columnconfigure(0, weight=1)
-        root.rowconfigure(0, weight=1)
+        self.root = Tk()
+        self.root.title("Knight Read")
+        self.root.columnconfigure(0, weight=1)
+        self.root.rowconfigure(0, weight=1)
 
         # Main frame to put all other frames into.
-        mainframe = ttk.Frame(root, padding=3)
-        mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
-        mainframe.columnconfigure(0, weight=1)
-        mainframe.rowconfigure(2, weight=1)
+        self.mainframe = ttk.Frame(self.root, padding=3)
+        self.mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
+        self.mainframe.columnconfigure(0, weight=1)
+        self.mainframe.rowconfigure(2, weight=1)
 
         # All container frames
-        welcomeframe = ttk.Frame(mainframe, borderwidth=5, relief="ridge")
-        uploadframe = ttk.Frame(mainframe, borderwidth=5, relief="ridge")
-        libraryframe = ttk.Frame(
-            mainframe,
+        self.welcomeframe = ttk.Frame(self.mainframe, borderwidth=5, relief="ridge")
+        self.uploadframe = ttk.Frame(self.mainframe, borderwidth=5, relief="ridge")
+        self.libraryframe = ttk.Frame(
+            self.mainframe,
             borderwidth=5,
             relief="ridge",
             width=300,
@@ -34,27 +34,27 @@ class KnightReadGUI:
         )
 
         # Layout of container frames
-        welcomeframe.grid(column=0, row=0, sticky=(W, E))
-        uploadframe.grid(column=0, row=1, sticky=(W, E))
-        libraryframe.grid(column=0, row=2, sticky=(N, W, E, S))
+        self.welcomeframe.grid(column=0, row=0, sticky=(W, E))
+        self.uploadframe.grid(column=0, row=1, sticky=(W, E))
+        self.libraryframe.grid(column=0, row=2, sticky=(N, W, E, S))
 
         # Welcome frame widgets
-        welcomelabel = ttk.Label(welcomeframe, text="Welcome to Knight Read!")
+        welcomelabel = ttk.Label(self.welcomeframe, text="Welcome to Knight Read!")
         welcomelabel.grid(column=0, row=0, pady=20)
-        welcomeframe.columnconfigure(0, weight=1)
+        self.welcomeframe.columnconfigure(0, weight=1)
 
         # Upload frame widgets
-        uploadlabel = ttk.Label(uploadframe, text="Upload new EPUB here!")
+        uploadlabel = ttk.Label(self.uploadframe, text="Upload new EPUB here!")
         uploadbutton = ttk.Button(
-            uploadframe, text="Select a file", command=self.upload_file
+            self.uploadframe, text="Select a file", command=self.upload_file
         )
 
         # Layout of upload frame widgets
         uploadlabel.grid(column=0, row=0, pady=5)
         uploadbutton.grid(column=0, row=1, pady=5)
-        uploadframe.columnconfigure(0, weight=1)
+        self.uploadframe.columnconfigure(0, weight=1)
 
-        root.mainloop()
+        self.root.mainloop()
 
     def upload_file(self):
         file_types = [("EPUB files", "*.epub")]
@@ -68,3 +68,12 @@ class KnightReadGUI:
             self.library[new_book.title] = new_book
             print(f"{new_book.title} uploaded!!!")
             print(f"library now consists of: {self.library.keys()}")
+            bookbutton = ttk.Button(
+                self.libraryframe,
+                text=new_book.title,
+                command=lambda b=new_book: self.display_book(b),
+            )
+            bookbutton.grid()
+
+    def display_book(self, book):
+        pass
