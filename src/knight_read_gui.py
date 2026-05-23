@@ -79,13 +79,23 @@ class KnightReadGUI:
     def display_book(self, book):
         reader_window = Toplevel()
         reader_window.title(book.title)
+
         reader_frame = ttk.Frame(reader_window, padding=3)
         reader_frame.grid(column=0, row=0, sticky=(N, W, E, S))
+        reader_frame.columnconfigure(0, weight=1)
+        reader_frame.columnconfigure(1, weight=1)
+
+        toc_frame = ttk.Frame(reader_frame, borderwidth=5, relief="ridge")
+        toc_text = ttk.Label(toc_frame, text="Hello World")
+        toc_text.grid()
+
+        toc_frame.grid(column=0, sticky=(N, W))
+        toc_frame.columnconfigure(0, weight=1)
 
         content_area = scrolledtext.ScrolledText(
             reader_frame, font=("Times New Roman", 15)
         )
-        content_area.grid()
+        content_area.grid(column=1, sticky=(N, S, E))
 
         content_area.insert(INSERT, book.chapters[3].content)
 
