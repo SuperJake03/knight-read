@@ -20,18 +20,5 @@ Look into Ebooklib: https://pypi.org/project/EbookLib/
 
 ## TODO
 
-- Create a book object
-  - stores epub spine
-  - contents
-- Create chapter object
-- Create image object
-- Create stylesheet object
-
-- set up tkinter GUI splash page
-  - Create welcome screen
-  - Allow file input
-- parse epub
 - disaplay contents on GUI
-  - Allow for page turning
 - Add a database to store books
-  - Save last page
