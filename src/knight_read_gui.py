@@ -65,8 +65,6 @@ class KnightReadGUI:
             # Create new book object
             new_book = book_upload(file_path)
             self.library[new_book.title] = new_book
-            print(f"{new_book.title} uploaded!!!")
-            print(f"library now consists of: {self.library.keys()}")
 
             # Add book to library, button
             book_button = ttk.Button(
@@ -91,14 +89,14 @@ class KnightReadGUI:
 
         # TOC frame on left
         toc_frame = ttk.Frame(reader_frame, borderwidth=5, relief="ridge")
-        toc_frame.grid(column=0, sticky=(N, W))
+        toc_frame.grid(column=0, row=0, sticky=(N, W))
         toc_frame.columnconfigure(0, weight=1)
 
         # Scrolled text to display chapter content on right
         content_area = scrolledtext.ScrolledText(
             reader_frame, font=("Times New Roman", 15)
         )
-        content_area.grid(column=1, sticky=(N, S, E))
+        content_area.grid(column=1, row=0, sticky=(N, S, E))
 
         # Add chapter buttons to TOC frame
         row = 0
