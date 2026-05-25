@@ -33,24 +33,24 @@ class KnightReadGUI:
         self.library_frame.grid(column=0, row=2, sticky=(N, W, E, S))
 
         # Welcome frame widgets
-        welcomelabel = ttk.Label(self.welcome_frame, text="Welcome to Knight Read!")
-        welcomelabel.grid(column=0, row=0, pady=20)
+        welcome_label = ttk.Label(self.welcome_frame, text="Welcome to Knight Read!")
+        welcome_label.grid(column=0, row=0, pady=20)
         self.welcome_frame.columnconfigure(0, weight=1)
 
         # Upload frame widgets
-        uploadlabel = ttk.Label(self.upload_frame, text="Upload new EPUB here!")
-        uploadbutton = ttk.Button(
+        upload_label = ttk.Label(self.upload_frame, text="Upload new EPUB here!")
+        upload_button = ttk.Button(
             self.upload_frame, text="Select a file", command=self.upload_file
         )
 
         # Layout of upload frame widgets
-        uploadlabel.grid(column=0, row=0, pady=5)
-        uploadbutton.grid(column=0, row=1, pady=5)
+        upload_label.grid(column=0, row=0, pady=5)
+        upload_button.grid(column=0, row=1, pady=5)
         self.upload_frame.columnconfigure(0, weight=1)
 
         # library frame widgets
-        librarylabel = ttk.Label(self.library_frame, text="Library")
-        librarylabel.pack(side="top")
+        library_label = ttk.Label(self.library_frame, text="Library")
+        library_label.pack(side="top")
 
         self.root.mainloop()
 
@@ -77,26 +77,48 @@ class KnightReadGUI:
             book_button.pack()
 
     def display_book(self, book):
+        # reader window
         reader_window = Toplevel()
         reader_window.title(book.title)
+        reader_window.columnconfigure(0, weight=1)
+        reader_window.rowconfigure(0, weight=1)
 
+        # reader main frame
         reader_frame = ttk.Frame(reader_window, padding=3)
         reader_frame.grid(column=0, row=0, sticky=(N, W, E, S))
         reader_frame.columnconfigure(0, weight=1)
         reader_frame.columnconfigure(1, weight=1)
 
+        # TOC frame on left
         toc_frame = ttk.Frame(reader_frame, borderwidth=5, relief="ridge")
-        toc_text = ttk.Label(toc_frame, text="Hello World")
-        toc_text.grid()
-
         toc_frame.grid(column=0, sticky=(N, W))
         toc_frame.columnconfigure(0, weight=1)
 
+        # Scrolled text to display chapter content on right
         content_area = scrolledtext.ScrolledText(
             reader_frame, font=("Times New Roman", 15)
         )
         content_area.grid(column=1, sticky=(N, S, E))
 
-        content_area.insert(INSERT, book.chapters[3].content)
+        # Add chapter buttons to TOC frame
+        row = 0
+        for chap in book.chapters:
+            chap_button = ttk.Button(
+                toc_frame,
+                text=chap.title,
+                command=lambda content=content_area, c=chap: self.change_chapter(
+                    content, c
+                ),
+            )
+            chap_button.grid(column=0, row=row)
+            row += 1
 
+        # Display first chapter by default
+        content_area.insert("1.0", book.chapters[0].content)
+        content_area.config(state="disabled")
+
+    def change_chapter(self, content_area, chapter):
+        content_area.config(state="normal")
+        content_area.delete("1.0", END)
+        content_area.insert("1.0", chapter.content)
         content_area.config(state="disabled")

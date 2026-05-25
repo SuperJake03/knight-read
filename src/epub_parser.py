@@ -63,7 +63,8 @@ def extract_chapters(book, new_book_obj):
             href = item.get_name()
             body = item.get_body_content()
             soup = BeautifulSoup(body, "html.parser")
-            title = soup.find("h1")
+            title_tag = soup.find("h1")
+            title = title_tag.get_text() if title_tag else ""
             content = soup.get_text()
             new_chap_obj = Chapter(id=item_id, href=href, title=title, content=content)
             new_book_obj.chapters.append(new_chap_obj)
