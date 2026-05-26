@@ -87,10 +87,25 @@ class KnightReadGUI:
         reader_frame.columnconfigure(0, weight=1)
         reader_frame.columnconfigure(1, weight=1)
 
-        # TOC frame on left
-        toc_frame = ttk.Frame(reader_frame, borderwidth=5, relief="ridge")
-        toc_frame.grid(column=0, row=0, sticky=(N, W))
-        toc_frame.columnconfigure(0, weight=1)
+        # scrollable TOC frame on left
+        toc_container = ttk.Frame(reader_frame)
+        toc_container.grid(column=0, row=0, sticky=(N, W, S))
+
+        canvas = Canvas(toc_container)
+        canvas.grid(column=0, row=0, sticky=(N, W, S))
+
+        scrollbar = ttk.Scrollbar(
+            toc_container, orient="vertical", command=canvas.yview
+        )
+        scrollbar.grid(column=1, row=0, sticky=(N, S))
+
+        toc_frame = ttk.Frame(canvas)
+        toc_frame.bind(
+            "<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
+        )
+
+        canvas.create_window((0, 0), window=toc_frame, anchor="nw")
+        canvas.configure(yscrollcommand=scrollbar.set)
 
         # Scrolled text to display chapter content on right
         content_area = scrolledtext.ScrolledText(

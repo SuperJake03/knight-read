@@ -2,7 +2,7 @@
 - An EPUB reader
 
 ## Next Steps
-- display book content
+- make chapter buttons scrollable
 
 ## Things this eBook reader should do
 
