@@ -92,6 +92,13 @@ class KnightReadGUI:
         toc_container.grid(column=0, row=0, sticky=(N, W, S))
 
         canvas = Canvas(toc_container)
+        canvas.bind(
+            "<MouseWheel>", lambda event: on_mouse_scroll_win_mac(canvas, event)
+        )
+
+        canvas.bind("<Button-4>", lambda event: on_mouse_scroll_linux(canvas, event))
+
+        canvas.bind("<Button-5>", lambda event: on_mouse_scroll_linux(canvas, event))
         canvas.grid(column=0, row=0, sticky=(N, W, S))
 
         scrollbar = ttk.Scrollbar(
@@ -135,3 +142,19 @@ class KnightReadGUI:
         content_area.delete("1.0", END)
         content_area.insert("1.0", chapter.content)
         content_area.config(state="disabled")
+
+
+"""
+    Move to a util_func.py file
+"""
+
+
+def on_mouse_scroll_win_mac(canvas, event):
+    canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+
+
+def on_mouse_scroll_linux(canvas, event):
+    if event.num == 4:
+        canvas.yview_scroll(-1, "units")
+    elif event.num == 5:
+        canvas.yview_scroll(1, "units")
