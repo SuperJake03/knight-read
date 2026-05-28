@@ -68,24 +68,3 @@ def extract_chapters(book, new_book_obj):
             content = soup.get_text().strip()
             new_chap_obj = Chapter(id=item_id, href=href, title=title, content=content)
             new_book_obj.chapters.append(new_chap_obj)
-
-
-# def get_title(toc, tgt_href):
-#     for toc_item in toc:
-#         title = get_title_helper(toc_item, tgt_href)
-#         if title:
-#             return title
-#     return "Not found"
-
-
-# def get_title_helper(toc_item, tgt_href):
-#     if isinstance(toc_item, epub.Link):
-#         href_trimmed = toc_item.href.split("#")[0]
-#         if href_trimmed.endswith(tgt_href):
-#             print(toc_item.title)
-#             return toc_item.title
-#     elif isinstance(toc_item, tuple):
-#         for item in toc_item:
-#             title = get_title_helper(item, tgt_href)
-#             if title:
-#                 return title

@@ -3,6 +3,7 @@ from tkinter import *
 from tkinter import filedialog, scrolledtext, ttk
 
 from epub_parser import book_upload
+from util_func import on_mouse_scroll_linux, on_mouse_scroll_win_mac
 
 
 class KnightReadGUI:
@@ -84,22 +85,24 @@ class KnightReadGUI:
         # reader main frame
         reader_frame = ttk.Frame(reader_window, padding=3)
         reader_frame.grid(column=0, row=0, sticky=(N, W, E, S))
-        reader_frame.columnconfigure(0, weight=1)
-        reader_frame.columnconfigure(1, weight=1)
+        reader_frame.columnconfigure(0, weight=0)  # TOC Frame
+        reader_frame.columnconfigure(1, weight=1)  # Spacer
+        reader_frame.columnconfigure(2, weight=2)  # Content Frame
+        reader_frame.rowconfigure(0, weight=1)
 
         # scrollable TOC frame on left
         toc_container = ttk.Frame(reader_frame)
-        toc_container.grid(column=0, row=0, sticky=(N, W, S))
+        toc_container.grid(column=0, row=0, sticky=(N, W, E))
+        toc_container.columnconfigure(0, weight=1)
+        toc_container.rowconfigure(0, weight=1)
 
         canvas = Canvas(toc_container)
         canvas.bind(
             "<MouseWheel>", lambda event: on_mouse_scroll_win_mac(canvas, event)
         )
-
         canvas.bind("<Button-4>", lambda event: on_mouse_scroll_linux(canvas, event))
-
         canvas.bind("<Button-5>", lambda event: on_mouse_scroll_linux(canvas, event))
-        canvas.grid(column=0, row=0, sticky=(N, W, S))
+        canvas.grid(column=0, row=0, sticky=(N, W, E, S))
 
         scrollbar = ttk.Scrollbar(
             toc_container, orient="vertical", command=canvas.yview
@@ -118,7 +121,7 @@ class KnightReadGUI:
         content_area = scrolledtext.ScrolledText(
             reader_frame, font=("Times New Roman", 15)
         )
-        content_area.grid(column=1, row=0, sticky=(N, S, E))
+        content_area.grid(column=2, row=0, sticky=(N, W, S))
 
         # Add chapter buttons to TOC frame
         row = 0
@@ -130,7 +133,7 @@ class KnightReadGUI:
                     content, c
                 ),
             )
-            chap_button.grid(column=0, row=row)
+            chap_button.grid(column=0, row=row, sticky=(W, E))
             row += 1
 
         # Display first chapter by default
@@ -142,19 +145,3 @@ class KnightReadGUI:
         content_area.delete("1.0", END)
         content_area.insert("1.0", chapter.content)
         content_area.config(state="disabled")
-
-
-"""
-    Move to a util_func.py file
-"""
-
-
-def on_mouse_scroll_win_mac(canvas, event):
-    canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
-
-
-def on_mouse_scroll_linux(canvas, event):
-    if event.num == 4:
-        canvas.yview_scroll(-1, "units")
-    elif event.num == 5:
-        canvas.yview_scroll(1, "units")
